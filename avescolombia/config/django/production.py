@@ -1,6 +1,5 @@
 from .base import *
-from config.env import env
+from avescolombia.config.env import BASE_DIR, env
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
-
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])

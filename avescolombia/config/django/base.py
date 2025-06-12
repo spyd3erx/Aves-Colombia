@@ -1,18 +1,27 @@
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 from avescolombia.config.env import BASE_DIR, env
 
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+# Cloudinary configuration
+cloudinary.config(
+    cloud_name=env.str('CLOUDINARY_CLOUD_NAME'),
+    api_key=env.str('CLOUDINARY_API_KEY'),
+    api_secret=env.str('CLOUDINARY_API_SECRET'),
+)
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO_DEBUG', default=True)
 
-ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -25,6 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # own apps
+    'apps.aves.apps.AvesConfig',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +122,17 @@ JAZZMIN_SETTINGS = {
     "site_title": "Aves de Colombia",
     "site_header": "Panel de AvesCo",
     "site_brand": "AvesCo",
-    "site_logo": "images/logo.png",
+    "site_logo": "images/logo.webp",
     "welcome_sign": "Bienvenido a AvesCo",
+    "copyright": "Aves de Colombia",
+    #"show_ui_builder": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "aves.Ave": "fa-solid fa-crow",
+        "aves.Familia": "fa-brands fa-earlybirds",
+        "aves.Especie": "fa-solid fa-dove",
+        "aves.Genero": "fa-solid fa-crow",
+    },    
 }
